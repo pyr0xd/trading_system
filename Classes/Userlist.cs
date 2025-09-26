@@ -27,5 +27,22 @@ class UserManager //skapa en lista
         UserList.Add(new Users("peter", "har3"));
 
     }
+    public void ShowAllUserItems()
+    {
+        foreach (Users user in UserList)
+        {
+            Console.WriteLine($"{user.Name}");
+            if (user.Inventory.Count == 0)
+            {
+                Console.WriteLine("tom");
+            }
+            else
+            {
+                foreach (Item item in user.Inventory)
+                    Console.WriteLine($"{item.IName}x {item.Amount}");
+            }
+
+        }
+    }
 
 }

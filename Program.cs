@@ -3,12 +3,13 @@ using System.Security.Cryptography.X509Certificates;
 using App;
 
 UserManager manager = new UserManager();
-ItemManager NewItem = new ItemManager();
+//ItemManager NewItem = new ItemManager();
+
+
 
 manager.TempUser();
-
 bool running = true;
-Login? active_user = null;
+Users? active_user = null;
 
 Console.WriteLine("hello");
 
@@ -32,7 +33,7 @@ while (running == true)
                 string Username = Console.ReadLine();
                 Console.WriteLine("Password");
                 string password = Console.ReadLine();
-                foreach (Login user in manager.UserList)
+                foreach (Users user in manager.UserList)
                 {
                     if (user.TryLogin(Username, password))
                     {
@@ -71,7 +72,10 @@ while (running == true)
         Console.WriteLine("1 : lägga till item");
         Console.WriteLine("2 : Trade");
         Console.WriteLine("3 : remove");
-        Console.WriteLine("4 : stänga av");
+        Console.WriteLine("4 : Show all");
+        Console.WriteLine("5 : Show mine");
+        Console.WriteLine("6 : log out");
+        Console.WriteLine("7 : stänga av");
 
 
         string? choice = Console.ReadLine();
@@ -80,12 +84,12 @@ while (running == true)
         {
             case "1":
                 Console.WriteLine("add item");
-                String item = Console.ReadLine();
+                String? item = Console.ReadLine();
                 Console.WriteLine("amount");
-                string amount = Console.ReadLine();
-                int Namount;
-                int.TryParse(amount, out Namount);
-                NewItem.AddItems(item, Namount);
+                string? amount = Console.ReadLine();
+                int.TryParse(amount, out int nAmount);
+                active_user.AddItems(item!, nAmount);
+
                 break;
             case "2":
                 Console.WriteLine("trade item");
@@ -93,11 +97,17 @@ while (running == true)
             case "3":
                 Console.WriteLine("remove item");
                 break;
-            case "5":
-                Console.WriteLine("show items");
-                NewItem.ShowItems();
-                break;
             case "4":
+                Console.WriteLine("show items");
+                manager.ShowAllUserItems();
+                break;
+            case "5":
+                active_user.ShowMyItems();
+                break;
+            case "6":
+                active_user = null;
+                break;
+            case "7":
                 running = false;
                 break;
         }
