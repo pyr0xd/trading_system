@@ -1,6 +1,6 @@
 namespace App;
 
-public class Users
+public class Users : Login
 {
     public string Name;
     public String Password;
@@ -9,6 +9,10 @@ public class Users
         Name = name;
         Password = password;
 
+    }
+    public bool TryLogin(string name, string password)
+    {
+        return name == Name && password == Password;
     }
 }
 

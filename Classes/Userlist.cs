@@ -17,7 +17,7 @@ class UserManager //skapa en lista
     {
         foreach (Users user in UserList)
         {
-            Console.WriteLine($"Name{user.Name}, password {user.Password}");
+            Console.WriteLine($"Name: {user.Name}, password: {user.Password}");
         }
     }
     public void TempUser()
