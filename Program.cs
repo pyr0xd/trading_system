@@ -96,6 +96,10 @@ while (running == true)
                 break;
             case "3":
                 Console.WriteLine("remove item");
+                item = Console.ReadLine();
+                amount = Console.ReadLine();
+                int.TryParse(amount, out int Iamount);
+                active_user.RemoveItems(item!, Iamount);
                 break;
             case "4":
                 Console.WriteLine("show items");

@@ -20,13 +20,33 @@ class UserManager //skapa en lista
             Console.WriteLine($"Name: {user.Name}, password: {user.Password}");
         }
     }
+    // public void TempUser()
+    // {
+    //     UserList.Add(new Users("kalle", "har1"));
+    //     UserList.Add(new Users("pelle", "har2"));
+    //     UserList.Add(new Users("peter", "har3"));
+
+    // }
+
     public void TempUser()
     {
-        UserList.Add(new Users("kalle", "har1"));
-        UserList.Add(new Users("pelle", "har2"));
-        UserList.Add(new Users("peter", "har3"));
+        Users kalle = new Users("kalle", "har1");
+        kalle.AddItems("banan", 1);
+        kalle.AddItems("Apple", 5);
+        UserList.Add(kalle);
 
+        Users pelle = new Users("pelle", "har2");
+        pelle.AddItems("stol", 1);
+        pelle.AddItems("bord", 3);
+        UserList.Add(pelle);
+
+        Users peter = new Users("peter", "har3");
+        peter.AddItems("hud", 1);
+        peter.AddItems("blood", 20);
+        UserList.Add(peter);
     }
+
+
     public void ShowAllUserItems(Users activeUsers)
     {
         foreach (Users user in UserList)
@@ -34,6 +54,7 @@ class UserManager //skapa en lista
             if (user == activeUsers)
                 continue;
             Console.WriteLine($"{user.Name}");
+            Console.WriteLine("‾‾‾‾‾‾");
             if (user.Inventory.Count == 0)
             {
                 Console.WriteLine("tom");

@@ -25,9 +25,28 @@ public class Users : Login
 
     public void ShowMyItems()
     {
+        Console.WriteLine($"Du har");
+        Console.WriteLine("\u203E\u203E\u203E\u203E\u203E");
         foreach (Item item in Inventory)
-            Console.WriteLine($"{item.IName} x{item.Amount}");
+
+            Console.WriteLine($" {item.IName} x{item.Amount}");
     }
+
+    public bool RemoveItems(string itemName, int amount)
+    {
+        Item? item = Inventory.FirstOrDefault(i => i.IName == itemName);
+        if (item != null && item.Amount >= amount)
+        {
+            item.Amount -= amount;
+            if (item.Amount == 0)
+                Inventory.Remove(item);
+            return true;
+        }
+        return false;
+    }
+
+
+
 
 
 
