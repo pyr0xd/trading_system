@@ -27,10 +27,12 @@ class UserManager //skapa en lista
         UserList.Add(new Users("peter", "har3"));
 
     }
-    public void ShowAllUserItems()
+    public void ShowAllUserItems(Users activeUsers)
     {
         foreach (Users user in UserList)
         {
+            if (user == activeUsers)
+                continue;
             Console.WriteLine($"{user.Name}");
             if (user.Inventory.Count == 0)
             {
@@ -39,7 +41,7 @@ class UserManager //skapa en lista
             else
             {
                 foreach (Item item in user.Inventory)
-                    Console.WriteLine($"{item.IName}x {item.Amount}");
+                    Console.WriteLine($"{item.IName} x {item.Amount}");
             }
 
         }

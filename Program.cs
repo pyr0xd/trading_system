@@ -99,7 +99,8 @@ while (running == true)
                 break;
             case "4":
                 Console.WriteLine("show items");
-                manager.ShowAllUserItems();
+
+                manager.ShowAllUserItems(active_user);
                 break;
             case "5":
                 active_user.ShowMyItems();
