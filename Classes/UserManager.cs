@@ -16,9 +16,10 @@ class UserManager
 
     public UserManager()
     {
-        //skapar user.txt om det inte finns
+        //skapar /memory/
         Directory.CreateDirectory(memoryDir);
-
+        //skapar user.txt om det inte finns
+        File.Create(userFile);
     }
 
     //sparar users och deras items till User.txt
