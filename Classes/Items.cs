@@ -1,11 +1,15 @@
 namespace App;
 
+//class för items
 public class Item
+
 {
+    // namn på item
     public string? IName;
+    //hur många av det itemet
     public int Amount;
 
-
+    //konstruktor för item
     public Item(string item, int amount)
     {
         IName = item;
@@ -14,21 +18,3 @@ public class Item
 
 
 }
-// class ItemManager
-// {
-//     public List<Item> ItemsList = new List<Item>();
-
-//     public void AddItems(string item, int amount)
-//     {
-//         ItemsList.Add(new Item(item, amount));
-//     }
-//     public void ShowItems()
-//     {
-//         foreach (Item item in ItemsList)
-//         {
-//             Console.WriteLine($"{item.IName} {item.Amount}");
-//         }
-//     }
-
-
-// }

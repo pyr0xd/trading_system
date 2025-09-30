@@ -1,13 +1,14 @@
-﻿using System.ComponentModel;
-using System.Security.Cryptography.X509Certificates;
+﻿using System;
+using System.IO;
 using App;
-
+// Skapar ett nytt UserManager-objekt som hanterar alla användare och deras lagring.
 UserManager manager = new UserManager();
-//ItemManager NewItem = new ItemManager();
+manager.LoadUsers(); // läs in sparade användare 
 
 
 
-manager.TempUser();
+
+
 bool running = true;
 Users? active_user = null;
 
@@ -15,6 +16,7 @@ Console.WriteLine("hello");
 
 while (running == true)
 {
+    //Om ingen är inloggad visa huvudmeny
     if (active_user == null)
     {
         Console.WriteLine("välj vad di vii göra");
@@ -22,7 +24,7 @@ while (running == true)
         Console.WriteLine("2 lägga till användare");
         Console.WriteLine("6 : stänga av");
 
-
+        //Läser in val
         string? choice = Console.ReadLine();
         switch (choice)
         {
@@ -33,6 +35,7 @@ while (running == true)
                 string Username = Console.ReadLine();
                 Console.WriteLine("Password");
                 string password = Console.ReadLine();
+                //Kollar om användaren finns och lösenoret är rätt 
                 foreach (Users user in manager.UserList)
                 {
                     if (user.TryLogin(Username, password))
@@ -52,6 +55,7 @@ while (running == true)
                 Console.WriteLine("skriv ditt lösenord ");
                 string? TempPassword = Console.ReadLine();
                 manager.AddUser(TempName!, TempPassword!);
+
                 break;
 
             case "5":
@@ -96,14 +100,9 @@ while (running == true)
                 break;
             case "3":
                 Console.WriteLine("remove item");
-                item = Console.ReadLine();
-                amount = Console.ReadLine();
-                int.TryParse(amount, out int Iamount);
-                active_user.RemoveItems(item!, Iamount);
                 break;
             case "4":
                 Console.WriteLine("show items");
-
                 manager.ShowAllUserItems(active_user);
                 break;
             case "5":
@@ -117,4 +116,7 @@ while (running == true)
                 break;
         }
     }
+    //sparar innan programet är slut
+    manager.SaveUsers();
+
 }
