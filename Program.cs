@@ -4,7 +4,7 @@ using App;
 // Skapar ett nytt UserManager-objekt som hanterar alla användare och deras lagring.
 UserManager manager = new UserManager();
 manager.LoadUsers(); // läs in sparade användare 
-
+string ul = "\u203e";
 
 
 
@@ -97,6 +97,23 @@ while (running == true)
                 break;
             case "2":
                 Console.WriteLine("trade item");
+                Console.WriteLine(ul + ul + ul + ul + ul);
+                Console.WriteLine("your item");
+                active_user.ShowMyItems();
+                Console.WriteLine("choose item");
+                //ska vara en readline som hittar dit item
+                Console.WriteLine("choice amount");
+                // välj hur många
+                Console.WriteLine("choose from who");
+                manager.ShowAllUserItems(active_user);
+
+                string Choice = Console.ReadLine();
+                Console.Clear();
+                manager.ShowSpecificUserItems(active_user, Choice);
+                Console.WriteLine("choose item from list");
+                Console.ReadKey();
+
+
                 break;
             case "3":
                 Console.WriteLine("remove item");

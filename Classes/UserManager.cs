@@ -83,7 +83,7 @@ class UserManager
                 // tar bort prefix Item:
                 string payload = line.Substring("Item:".Length);
                 // delar på raden vid ;
-                var parts = payload.Split(';');
+                string[] parts = payload.Split(';');
                 // kräver Item och Antal uppdelat och ser gör antal till int
                 if (parts.Length == 2 && int.TryParse(parts[1], out int amount))
                 {
@@ -142,5 +142,29 @@ class UserManager
 
         }
     }
+    public void ShowSpecificUserItems(Users activeUsers, string Choice)
+    {
+        //Loppar alla användare
+        foreach (Users users in UserList)
+        {
+            if (users == activeUsers)
+                continue;
 
+            if (users.Name.Equals(Choice))
+            {
+                Console.WriteLine($"{users.Name}");
+                Console.WriteLine("‾‾‾‾‾‾");
+
+                if (users.Inventory.Count == 0)
+                {
+                    Console.WriteLine("tom");
+                }
+                else
+                {
+                    foreach (Item item in users.Inventory)
+                        Console.WriteLine($"{item.IName} x {item.Amount}");
+                }
+            }
+        }
+    }
 }

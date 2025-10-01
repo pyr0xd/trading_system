@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "F:\\kode\\inlämning\\trading_system.csproj": {}
+    "E:\\kod\\trading_system\\trading_system.csproj": {}
   },
   "projects": {
-    "F:\\kode\\inlämning\\trading_system.csproj": {
+    "E:\\kod\\trading_system\\trading_system.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "F:\\kode\\inlämning\\trading_system.csproj",
+        "projectUniqueName": "E:\\kod\\trading_system\\trading_system.csproj",
         "projectName": "trading_system",
-        "projectPath": "F:\\kode\\inlämning\\trading_system.csproj",
+        "projectPath": "E:\\kod\\trading_system\\trading_system.csproj",
         "packagesPath": "C:\\Users\\kalke\\.nuget\\packages\\",
-        "outputPath": "F:\\kode\\inlämning\\obj\\",
+        "outputPath": "E:\\kod\\trading_system\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\kalke\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -58,7 +58,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.413/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.414/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
