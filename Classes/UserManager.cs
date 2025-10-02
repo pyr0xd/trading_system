@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.IO;
 
 
-class UserManager
+public class UserManager
 {
     //så att jag slipper skriva hela sökvägen till filen
     public static readonly string memoryDir = "./memory/";
@@ -16,18 +16,22 @@ class UserManager
 
     public UserManager()
     {
-        //skapar /memory/
+        // Skapa /memory/
         Directory.CreateDirectory(memoryDir);
-        //skapar user.txt om det inte finns
-        File.Create(userFile);
+
+        // Säkerställ att rätt fil finns i /memory/ och är stängd
+        if (!File.Exists(userMemory))
+        {
+            File.WriteAllText(userMemory, ""); // skapar filen tom om den saknas
+        }
     }
 
-    //sparar users och deras items till User.txt
+    //sparar användare och deras items till User.txt
     public void SaveUsers()
     {
         //skapar en lista av allt som ska sparas
         List<string> lines = new List<string>();
-        //Loppar alla anvcändare i listan
+        //Loppar alla användare i listan
         foreach (Users u in UserList)
         {
             //första raden är User: <användarnamn>;<lösenord>
@@ -167,4 +171,10 @@ class UserManager
             }
         }
     }
+    // Slår upp användare via namn.
+    public Users? FindByName(string name)
+    {
+        return UserList.FirstOrDefault(u => u.Name.Equals(name));
+    }
+
 }

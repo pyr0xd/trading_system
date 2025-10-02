@@ -5,6 +5,8 @@ using App;
 UserManager manager = new UserManager();
 manager.LoadUsers(); // läs in sparade användare 
 string ul = "\u203e";
+TradeManager tradeManager = new TradeManager();
+
 
 
 
@@ -80,6 +82,10 @@ while (running == true)
         Console.WriteLine("5 : Show mine");
         Console.WriteLine("6 : log out");
         Console.WriteLine("7 : stänga av");
+        Console.WriteLine("8 : Browse trade requests (incoming/outgoing)");
+        Console.WriteLine("9 : Accept/Deny a trade request");
+        Console.WriteLine("10: Browse completed requests");
+
 
 
         string? choice = Console.ReadLine();
@@ -96,25 +102,47 @@ while (running == true)
 
                 break;
             case "2":
-                Console.WriteLine("trade item");
-                Console.WriteLine(ul + ul + ul + ul + ul);
-                Console.WriteLine("your item");
+                Console.WriteLine("Create trade request");
+                Console.WriteLine("Your items:");
                 active_user.ShowMyItems();
-                Console.WriteLine("choose item");
-                //ska vara en readline som hittar dit item
-                Console.WriteLine("choice amount");
-                // välj hur många
-                Console.WriteLine("choose from who");
+
+                Console.Write("Offer item name: ");
+                string? offerName = Console.ReadLine();
+                Console.Write("Offer amount: ");
+                int.TryParse(Console.ReadLine(), out int offerAmount);
+
+                Console.WriteLine("Choose a user to trade with:");
                 manager.ShowAllUserItems(active_user);
+                Console.Write("Username: ");
+                string? targetName = Console.ReadLine();
+                var targetUser = manager.FindByName(targetName ?? "");
 
-                string Choice = Console.ReadLine();
-                Console.Clear();
-                manager.ShowSpecificUserItems(active_user, Choice);
-                Console.WriteLine("choose item from list");
-                Console.ReadKey();
+                if (targetUser == null)
+                {
+                    Console.WriteLine("User not found.");
+                    break;
+                }
 
+                Console.WriteLine($"Items of {targetUser.Name}:");
+                manager.ShowSpecificUserItems(active_user, targetUser.Name);
 
+                Console.Write("Request item name: ");
+                string? requestName = Console.ReadLine();
+                Console.Write("Request amount: ");
+                int.TryParse(Console.ReadLine(), out int requestAmount);
+
+                var tr = tradeManager.Create(
+                    active_user,
+                    targetUser,
+                    offerName ?? "",
+                    offerAmount,
+                    requestName ?? "",
+                    requestAmount
+                );
+
+                Console.WriteLine($"Trade request created with id [{tr.Id}] and status '{tr.Status}'.");
                 break;
+
             case "3":
                 Console.WriteLine("remove item");
                 break;
@@ -131,6 +159,57 @@ while (running == true)
             case "7":
                 running = false;
                 break;
+            case "8":
+                Console.WriteLine("Incoming (to you):");
+                foreach (var t in tradeManager.Incoming(active_user.Name))
+                    Console.WriteLine(t.ToString());
+
+                Console.WriteLine("\nOutgoing (you sent):");
+                foreach (var t in tradeManager.Outgoing(active_user.Name))
+                    Console.WriteLine(t.ToString());
+                break;
+
+            case "9":
+                Console.Write("Enter trade id to handle: ");
+                if (!int.TryParse(Console.ReadLine(), out int handleId))
+                {
+                    Console.WriteLine("Invalid id.");
+                    break;
+                }
+
+                Console.Write("Type 'a' to accept or 'd' to deny: ");
+                var action = Console.ReadLine();
+
+                if (action == "a")
+                {
+                    if (tradeManager.TryAccept(handleId, manager, active_user.Name, out string error))
+                    {
+                        Console.WriteLine("Trade completed!");
+                        manager.SaveUsers(); // spara itemskifte
+                    }
+                    else
+                    {
+                        Console.WriteLine($"Could not accept: {error}");
+                    }
+                }
+                else if (action == "d")
+                {
+                    bool ok = tradeManager.Deny(handleId);
+                    Console.WriteLine(ok ? "Trade denied." : "Could not deny (maybe already handled?).");
+                }
+                else
+                {
+                    Console.WriteLine("Unknown choice.");
+                }
+                break;
+
+
+            case "10":
+                Console.WriteLine("Completed/Denied trades involving you:");
+                foreach (var t in tradeManager.CompletedFor(active_user.Name))
+                    Console.WriteLine(t.ToString());
+                break;
+
         }
     }
     //sparar innan programet är slut

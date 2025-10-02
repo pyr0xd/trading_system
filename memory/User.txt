@@ -1,6 +1,6 @@
 User:kalle;har1
-Item:banan;1
 Item:Apple;5
+Item:hammare;1
 ---
 User:pelle;har2
 Item:stol;1
@@ -11,5 +11,6 @@ Item:hud;1
 Item:blood;20
 ---
 User:tit;to
-Item:hammare;2
+Item:hammare;1
+Item:banan;1
 ---

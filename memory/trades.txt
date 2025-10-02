@@ -1,0 +1,1 @@
+TRADE;1;tit;kalle;hammare;1;banan;1;completed
