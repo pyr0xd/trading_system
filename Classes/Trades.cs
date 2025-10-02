@@ -52,7 +52,7 @@ public class TradeManager
     // TRADE;Id;FromUser;ToUser;OfferedItem;OfferedAmount;RequestedItem;RequestedAmount;Status
     public void Save()
     {
-        var lines = new List<string>();
+        List<string> lines = new List<string>();
         foreach (var t in Trades)
         {
             lines.Add($"TRADE;{t.Id};{t.FromUser};{t.ToUser};{t.OfferedItem};{t.OfferedAmount};{t.RequestedItem};{t.RequestedAmount};{t.Status}");
@@ -65,13 +65,13 @@ public class TradeManager
         Trades.Clear();
         if (!File.Exists(tradeMemory)) return;
 
-        foreach (var raw in File.ReadAllLines(tradeMemory))
+        foreach (string raw in File.ReadAllLines(tradeMemory))
         {
-            var line = raw.Trim();
+            string line = raw.Trim();
             if (line.Length == 0) continue;
             if (!line.StartsWith("TRADE;")) continue;
 
-            var p = line.Split(';');
+            string[] p = line.Split(';');
             if (p.Length < 9) continue;
 
             // p[0]=TRADE, p[1]=Id, p[2]=From, p[3]=To, p[4]=OfferedItem,
@@ -100,7 +100,7 @@ public class TradeManager
     // Vi flyttar INTE items här – flytten sker först vid Accept.
     public TradeRequest Create(Users from, Users to, string offeredItem, int offeredAmount, string requestedItem, int requestedAmount)
     {
-        var t = new TradeRequest
+        TradeRequest t = new TradeRequest
         {
             Id = NextId(),
             FromUser = from.Name,

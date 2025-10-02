@@ -116,7 +116,7 @@ while (running == true)
                 manager.ShowAllUserItems(active_user);
                 Console.Write("Username: ");
                 string? targetName = Console.ReadLine();
-                var targetUser = manager.FindByName(targetName ?? "");
+                Users targetUser = manager.FindByName(targetName ?? "");
 
                 if (targetUser == null)
                 {
@@ -132,7 +132,7 @@ while (running == true)
                 Console.Write("Request amount: ");
                 int.TryParse(Console.ReadLine(), out int requestAmount);
 
-                var tr = tradeManager.Create(
+                TradeRequest tr = tradeManager.Create(
                     active_user,
                     targetUser,
                     offerName ?? "",
@@ -168,11 +168,11 @@ while (running == true)
                 break;
             case "8":
                 Console.WriteLine("Incoming (to you):");
-                foreach (var t in tradeManager.Incoming(active_user.Name))
+                foreach (TradeRequest t in tradeManager.Incoming(active_user.Name))
                     Console.WriteLine(t.ToString());
 
                 Console.WriteLine("\nOutgoing (you sent):");
-                foreach (var t in tradeManager.Outgoing(active_user.Name))
+                foreach (TradeRequest t in tradeManager.Outgoing(active_user.Name))
                     Console.WriteLine(t.ToString());
                 break;
 
@@ -185,7 +185,7 @@ while (running == true)
                 }
 
                 Console.Write("Type 'a' to accept or 'd' to deny: ");
-                var action = Console.ReadLine();
+                string action = Console.ReadLine();
 
                 if (action == "a")
                 {
@@ -213,7 +213,7 @@ while (running == true)
 
             case "10":
                 Console.WriteLine("Completed/Denied trades involving you:");
-                foreach (var t in tradeManager.CompletedFor(active_user.Name))
+                foreach (TradeRequest t in tradeManager.CompletedFor(active_user.Name))
                     Console.WriteLine(t.ToString());
                 break;
 
