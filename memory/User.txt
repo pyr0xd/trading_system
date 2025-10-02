@@ -12,5 +12,4 @@ Item:blood;20
 ---
 User:tit;to
 Item:hammare;1
-Item:banan;1
 ---

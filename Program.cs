@@ -21,10 +21,11 @@ while (running == true)
     //Om ingen är inloggad visa huvudmeny
     if (active_user == null)
     {
-        Console.WriteLine("välj vad di vii göra");
+        Console.WriteLine("choose option");
         Console.WriteLine("1 : login");
-        Console.WriteLine("2 lägga till användare");
-        Console.WriteLine("6 : stänga av");
+        Console.WriteLine("2 Add user");
+        Console.WriteLine("p");
+        Console.WriteLine("6 : Close");
 
         //Läser in val
         string? choice = Console.ReadLine();
@@ -43,7 +44,7 @@ while (running == true)
                     if (user.TryLogin(Username, password))
                     {
                         active_user = user;
-                        Console.WriteLine($"välkomen{Username}!");
+                        Console.WriteLine($"welcome{Username}!");
                     }
 
 
@@ -52,15 +53,15 @@ while (running == true)
                 break;
             case "2":
                 Console.WriteLine("add User");
-                Console.WriteLine("skriv ditt namn ");
+                Console.WriteLine("write your name ");
                 string? TempName = Console.ReadLine();
-                Console.WriteLine("skriv ditt lösenord ");
+                Console.WriteLine("Write password ");
                 string? TempPassword = Console.ReadLine();
                 manager.AddUser(TempName!, TempPassword!);
 
                 break;
 
-            case "5":
+            case "p":
                 Console.WriteLine("show all users");
                 manager.ShowUser();
                 Console.ReadKey();
@@ -74,14 +75,14 @@ while (running == true)
     }
     else
     {
-        Console.WriteLine("välj vad di vii göra");
-        Console.WriteLine("1 : lägga till item");
+        Console.WriteLine("Choose option");
+        Console.WriteLine("1 : Add item");
         Console.WriteLine("2 : Trade");
         Console.WriteLine("3 : remove");
         Console.WriteLine("4 : Show all");
         Console.WriteLine("5 : Show mine");
         Console.WriteLine("6 : log out");
-        Console.WriteLine("7 : stänga av");
+        Console.WriteLine("7 : close program");
         Console.WriteLine("8 : Browse trade requests (incoming/outgoing)");
         Console.WriteLine("9 : Accept/Deny a trade request");
         Console.WriteLine("10: Browse completed requests");
@@ -145,6 +146,12 @@ while (running == true)
 
             case "3":
                 Console.WriteLine("remove item");
+                active_user.ShowMyItems();
+                Console.WriteLine("write name of item");
+                string RAmount = Console.ReadLine();
+                Console.WriteLine("hur många");
+                int.TryParse(Console.ReadLine(), out int IRAmount);
+                active_user.RemoveItems(RAmount, IRAmount);
                 break;
             case "4":
                 Console.WriteLine("show items");
@@ -185,7 +192,7 @@ while (running == true)
                     if (tradeManager.TryAccept(handleId, manager, active_user.Name, out string error))
                     {
                         Console.WriteLine("Trade completed!");
-                        manager.SaveUsers(); // spara itemskifte
+                        manager.SaveUsers();
                     }
                     else
                     {

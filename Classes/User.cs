@@ -46,7 +46,7 @@ public class Users : Login
     {
         if (amount <= 0 || string.IsNullOrWhiteSpace(itemName)) return;
         var existing = Inventory.FirstOrDefault(i =>
-            string.Equals(i.IName, itemName, StringComparison.OrdinalIgnoreCase));
+            string.Equals(i.IName, itemName));
         if (existing != null) existing.Amount += amount;
         else Inventory.Add(new Item(itemName, amount));
     }
@@ -56,15 +56,15 @@ public class Users : Login
     {
         if (amount <= 0 || string.IsNullOrWhiteSpace(itemName)) return false;
         var item = Inventory.FirstOrDefault(i =>
-            string.Equals(i.IName, itemName, StringComparison.OrdinalIgnoreCase));
+            string.Equals(i.IName, itemName));
         return item != null && item.Amount >= amount;
     }
 
-    // tar bort item via namn och antal (case-insensitive)
+    // tar bort item via namn och antal 
     public bool RemoveItems(string itemName, int amount)
     {
         var item = Inventory.FirstOrDefault(i =>
-            string.Equals(i.IName, itemName, StringComparison.OrdinalIgnoreCase));
+            string.Equals(i.IName, itemName));
         if (item != null && item.Amount >= amount)
         {
             item.Amount -= amount;
