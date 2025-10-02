@@ -23,7 +23,7 @@
 ---
 
 ## Våra implementationsval (kort resonemang)
-- **Simpelt > avancerat**  
+- **Simpelt** 
   Vi använder **textfiler** i `./memory/` i stället för databas. Lätt att läsa, testa och återställa.
 - **Komposition framför arv**  
   En `Users` **har** en lista `List<Item>` (komposition). Vi skapade inte en stor arvshierarki eftersom vi bara behöver enkla behållare (namn + antal). Komposition håller klasserna små och tydliga.

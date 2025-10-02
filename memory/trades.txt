@@ -1,1 +1,3 @@
 TRADE;1;tit;kalle;hammare;1;banan;1;completed
+TRADE;2;barbie;peter;tent;1;blood;3;pending
+TRADE;3;pelle;peter;bord;1;blood;2;completed
